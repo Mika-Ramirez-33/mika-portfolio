@@ -1,31 +1,126 @@
 ---
 import '@fontsource-variable/inter';
-import '@fontsource/source-sans-pro';
-import DemoBanner from '../components/DemoBanner.astro'
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { 
-  title, 
-  description = "A modern personal website template for software developers"
+const {
+  title,
+  description = 'Portfolio profesional de Mika Ramirez, profesional en gestión de proyectos especializada en software, infraestructura, ciberseguridad y entornos financieros.',
 } = Astro.props;
+
+const locale = Astro.currentLocale ?? 'es';
+const normalizedLocale = locale === 'en' ? 'en' : 'es';
+
+const ogLocale =
+  normalizedLocale === 'es'
+    ? 'es_MX'
+    : 'en_US';
+
+const pathname = Astro.url.pathname;
+
+const spanishPath =
+  normalizedLocale === 'en'
+    ? pathname.replace(/^\/en/, '') || '/'
+    : pathname;
+
+const englishPath =
+  normalizedLocale === 'es'
+    ? `/en${pathname === '/' ? '/' : pathname}`
+    : pathname;
 ---
 
 <!doctype html>
-<html lang="en">
+
+<html lang={normalizedLocale}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+
+    <meta
+      name="description"
+      content={description}
+    />
+
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
+
+    <meta
+      name="color-scheme"
+      content="light dark"
+    />
+
+    <meta
+      property="og:title"
+      content={title}
+    />
+
+    <meta
+      property="og:description"
+      content={description}
+    />
+
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:locale"
+      content={ogLocale}
+    />
+
+    <link
+      rel="alternate"
+      hreflang="es"
+      href={spanishPath}
+    />
+
+    <link
+      rel="alternate"
+      hreflang="en"
+      href={englishPath}
+    />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+
     <title>{title}</title>
+
+    <script is:inline>
+      (() => {
+        const STORAGE_KEY = 'mika-portfolio-theme';
+
+        const savedTheme = localStorage.getItem(STORAGE_KEY);
+
+        const systemPrefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+
+        const resolvedTheme =
+          savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : systemPrefersDark
+              ? 'dark'
+              : 'light';
+
+        document.documentElement.dataset.theme = resolvedTheme;
+      })();
+    </script>
   </head>
-  <body class="bg-apple-gray-50 text-apple-gray-500">
-    <DemoBanner />
+
+  <body>
     <slot />
   </body>
 </html>
@@ -34,17 +129,70 @@ const {
   :root {
     --accent: rgb(0, 122, 255);
     --accent-dark: rgb(0, 64, 221);
+
+    --background-primary: rgb(248, 250, 252);
+    --background-secondary: rgb(255, 255, 255);
+    --background-elevated: rgba(255, 255, 255, 0.82);
+
+    --text-primary: rgb(17, 24, 39);
+    --text-secondary: rgb(75, 85, 99);
+    --text-muted: rgb(107, 114, 128);
+
+    --border-color: rgba(15, 23, 42, 0.1);
+    --shadow-color: rgba(15, 23, 42, 0.08);
+
+    color-scheme: light;
   }
-  
+
+  html[data-theme='dark'] {
+    --background-primary: rgb(10, 10, 12);
+    --background-secondary: rgb(20, 20, 24);
+    --background-elevated: rgba(24, 24, 28, 0.88);
+
+    --text-primary: rgb(245, 245, 247);
+    --text-secondary: rgb(190, 190, 198);
+    --text-muted: rgb(140, 140, 150);
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.45);
+
+    color-scheme: dark;
+  }
+
   html {
-    font-family: 'SF Pro Display', 'Inter Variable', system-ui, sans-serif;
+    font-family:
+      'Inter Variable',
+      system-ui,
+      sans-serif;
+
     scroll-behavior: smooth;
+
+    background: var(--background-primary);
+    color: var(--text-primary);
   }
 
   body {
     margin: 0;
     padding: 0;
+
     min-height: 100vh;
-    overscroll-behavior: none;
+
+    background: var(--background-primary);
+    color: var(--text-primary);
+
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: white;
   }
 </style>

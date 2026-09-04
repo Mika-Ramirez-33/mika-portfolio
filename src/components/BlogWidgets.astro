@@ -1,57 +1,692 @@
 ---
-interface BlogPost {
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
+interface VolunteerExperience {
+  role: string;
+  organization: string;
+  period: string;
+  description: string;
+  impact: string[];
+  tags: string[];
+  icon: 'infrastructure' | 'education';
 }
 
-const recentPosts: BlogPost[] = [
+const volunteering: VolunteerExperience[] = [
   {
-    title: "Building Scalable Web Applications",
-    excerpt: "Learn about the best practices for building scalable and maintainable web applications...",
-    date: "2024-02-15",
-    readTime: "5 min",
-    category: "Development"
+    role: 'Consultora de Infraestructura TI',
+    organization: 'Innovak',
+    period: 'JUL 2024 — DIC 2024',
+    description:
+      'Participé en el levantamiento de requerimientos de infraestructura y seguridad para proyectos de clientes, apoyando en la definición de soluciones, elaboración de presupuestos y seguimiento de entregables.',
+    impact: [
+      'Levantamiento de requerimientos de infraestructura',
+      'Seguridad de red y CCTV',
+      'Elaboración de presupuestos',
+      'Seguimiento con clientes',
+    ],
+    tags: [
+      'Infraestructura',
+      'Requerimientos',
+      'Seguridad',
+      'Clientes',
+    ],
+    icon: 'infrastructure',
   },
   {
-    title: "The Future of AI in Software Development",
-    excerpt: "Exploring how artificial intelligence is transforming the way we write and maintain code...",
-    date: "2024-02-10",
-    readTime: "4 min",
-    category: "AI"
-  }
+    role: 'Diseñadora Instruccional & Contenidos',
+    organization: 'Soveetnik',
+    period: 'NOV 2022 — NOV 2024',
+    description:
+      'Desarrollé y estructuré materiales técnicos de ingeniería para asignaturas académicas, diseñé cursos en Moodle y apoyé en la habilitación tecnológica de personal académico.',
+    impact: [
+      'Más de 10 ediciones de materiales técnicos',
+      'Diseño de cursos en Moodle',
+      'Contenido para Ingeniería de Software',
+      'Habilitación tecnológica a personal académico',
+    ],
+    tags: [
+      'Moodle',
+      'Educación',
+      'Documentación',
+      'Ingeniería de Software',
+    ],
+    icon: 'education',
+  },
 ];
 ---
 
-<div class="bg-white/80 backdrop-blur-lg rounded-3xl p-6 shadow-xl">
-  <div class="md:flex justify-between items-center mb-6">
-    <h3 class="text-2xl font-semibold text-blue-900">Recent Blog Posts</h3>
-    <a href="/blog" class="text-blue-600 hover:text-blue-800 transition-colors text-sm">View all posts →</a>
+<section id="volunteering" class="volunteering-section">
+
+  <div class="volunteering-header">
+
+    <div>
+      <p class="volunteering-eyebrow">
+        EXPERIENCIA MÁS ALLÁ DEL TRABAJO
+      </p>
+
+      <h2 class="volunteering-title">
+        Voluntariado & contribuciones
+      </h2>
+    </div>
+
+    <p class="volunteering-description">
+      Espacios donde he aplicado mis conocimientos para apoyar proyectos,
+      educación, tecnología e iniciativas con impacto más allá de mis
+      responsabilidades profesionales.
+    </p>
+
   </div>
-  <div class="space-y-6">
-    {recentPosts.map((post) => (
-      <article class="group">
-        <a href={`/blog/${post.title.toLowerCase().replace(/\s+/g, '-')}`} class="block p-4 rounded-2xl hover:bg-blue-50/50 transition-all duration-300">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
-            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-medium w-fit">
-              {post.category}
-            </span>
-            <div class="flex items-center gap-2 text-blue-400 text-sm">
-              <span>{post.date}</span>
-              <span>•</span>
-              <span>{post.readTime} read</span>
+
+
+  <div class="volunteering-grid">
+
+    {
+      volunteering.map((item, index) => (
+
+        <article class="volunteer-card">
+
+          <div class="volunteer-top">
+
+            <div class="volunteer-index">
+              {String(index + 1).padStart(2, '0')}
             </div>
+
+            <div
+              class:list={[
+                'volunteer-icon',
+                item.icon === 'infrastructure'
+                  ? 'icon-infrastructure'
+                  : 'icon-education',
+              ]}
+            >
+
+              {item.icon === 'infrastructure' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="3"
+                    y="4"
+                    width="18"
+                    height="12"
+                    rx="2"
+                  />
+
+                  <path
+                    stroke-linecap="round"
+                    d="M8 20h8M12 16v4M7 9h10"
+                  />
+                </svg>
+              )}
+
+              {item.icon === 'education' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 7.5L12 3l9 4.5L12 12 3 7.5z"
+                  />
+
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 9.5V15c0 1.4 2.7 3 6 3s6-1.6 6-3V9.5M21 8v6"
+                  />
+                </svg>
+              )}
+
+            </div>
+
+            <div class="volunteer-heading">
+              <span class="volunteer-period">
+                {item.period}
+              </span>
+
+              <h3>
+                {item.role}
+              </h3>
+
+              <p class="volunteer-organization">
+                {item.organization}
+              </p>
+            </div>
+
           </div>
-          <h4 class="text-lg font-medium text-blue-900 mb-2 group-hover:text-blue-600 transition-colors">
-            {post.title}
-          </h4>
-          <p class="text-blue-600/80 text-sm line-clamp-2">
-            {post.excerpt}
+
+
+          <p class="volunteer-description">
+            {item.description}
           </p>
-        </a>
-      </article>
-    ))}
+
+
+          <div class="volunteer-impact">
+
+            <p>
+              Principales contribuciones
+            </p>
+
+            <ul>
+              {
+                item.impact.map((impact) => (
+                  <li>
+                    <span
+                      class="impact-dot"
+                      aria-hidden="true"
+                    ></span>
+
+                    {impact}
+                  </li>
+                ))
+              }
+            </ul>
+
+          </div>
+
+
+          <div class="volunteer-tags">
+
+            {
+              item.tags.map((tag) => (
+                <span>
+                  {tag}
+                </span>
+              ))
+            }
+
+          </div>
+
+        </article>
+
+      ))
+    }
+
   </div>
-</div>
+
+
+  <div class="volunteering-footer">
+
+    <div class="volunteering-footer-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 21s-7-4.35-7-11a4 4 0 017-2.65A4 4 0 0119 10c0 6.65-7 11-7 11z"
+        />
+      </svg>
+
+    </div>
+
+    <div>
+      <strong>
+        Aprender también significa compartir.
+      </strong>
+
+      <p>
+        Me interesa participar en iniciativas donde pueda aportar,
+        aprender de otros equipos y contribuir con conocimiento,
+        organización y tecnología.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+  .volunteering-section {
+    padding: 2rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+
+    background: var(--background-elevated);
+
+    box-shadow:
+      0 20px 50px
+      var(--shadow-color);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+
+  .volunteering-header {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 1.75rem;
+  }
+
+
+  .volunteering-eyebrow {
+    margin: 0;
+
+    color: var(--accent);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+  }
+
+
+  .volunteering-title {
+    margin: 0.4rem 0 0;
+
+    color: var(--text-primary);
+
+    font-size:
+      clamp(1.8rem, 3vw, 2.4rem);
+
+    font-weight: 720;
+
+    letter-spacing: -0.035em;
+  }
+
+
+  .volunteering-description {
+    max-width: 38rem;
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+  }
+
+
+  .volunteering-grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+  }
+
+
+  .volunteer-card {
+    position: relative;
+
+    padding: 1.4rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 1.4rem;
+
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(
+          in srgb,
+          var(--accent) 3%,
+          var(--background-secondary)
+        ),
+        var(--background-secondary)
+      );
+
+    overflow: hidden;
+
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+
+  .volunteer-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+      color-mix(
+        in srgb,
+        var(--accent) 25%,
+        var(--border-color)
+      );
+
+    box-shadow:
+      0 16px 36px
+      var(--shadow-color);
+  }
+
+
+  .volunteer-top {
+    display: grid;
+
+    grid-template-columns:
+      auto auto minmax(0, 1fr);
+
+    gap: 0.85rem;
+
+    align-items: start;
+  }
+
+
+  .volunteer-index {
+    padding-top: 0.4rem;
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+    font-weight: 750;
+
+    letter-spacing: 0.08em;
+  }
+
+
+  .volunteer-icon {
+    display: flex;
+
+    width: 3rem;
+    height: 3rem;
+
+    flex-shrink: 0;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 1rem;
+  }
+
+
+  .volunteer-icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+
+  .icon-infrastructure {
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 12%,
+        transparent
+      );
+
+    color: var(--accent);
+  }
+
+
+  .icon-education {
+    background:
+      color-mix(
+        in srgb,
+        rgb(168, 85, 247) 12%,
+        transparent
+      );
+
+    color: rgb(168, 85, 247);
+  }
+
+
+  .volunteer-heading {
+    min-width: 0;
+  }
+
+
+  .volunteer-period {
+    display: inline-block;
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+
+
+  .volunteer-heading h3 {
+    margin: 0.25rem 0 0;
+
+    color: var(--text-primary);
+
+    font-size: 1.02rem;
+    font-weight: 690;
+
+    line-height: 1.3rem;
+  }
+
+
+  .volunteer-organization {
+    margin: 0.2rem 0 0;
+
+    color: var(--accent);
+
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+
+
+  .volunteer-description {
+    margin: 1rem 0 0;
+
+    color: var(--text-secondary);
+
+    font-size: 0.8rem;
+    line-height: 1.35rem;
+  }
+
+
+  .volunteer-impact {
+    margin-top: 1.1rem;
+
+    padding-top: 1rem;
+
+    border-top:
+      1px solid
+      var(--border-color);
+  }
+
+
+  .volunteer-impact > p {
+    margin: 0 0 0.6rem;
+
+    color: var(--text-muted);
+
+    font-size: 0.67rem;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+  }
+
+
+  .volunteer-impact ul {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 0.45rem 0.8rem;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+  }
+
+
+  .volunteer-impact li {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 0.45rem;
+
+    color: var(--text-secondary);
+
+    font-size: 0.72rem;
+    line-height: 1.1rem;
+  }
+
+
+  .impact-dot {
+    width: 0.38rem;
+    height: 0.38rem;
+
+    flex-shrink: 0;
+
+    margin-top: 0.35rem;
+
+    border-radius: 9999px;
+
+    background: var(--accent);
+  }
+
+
+  .volunteer-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.4rem;
+
+    margin-top: 1rem;
+  }
+
+
+  .volunteer-tags span {
+    padding:
+      0.28rem
+      0.6rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+
+    background: var(--background-primary);
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+    font-weight: 550;
+  }
+
+
+  .volunteering-footer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+
+    margin-top: 1.25rem;
+
+    padding: 1rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 4%,
+        var(--background-secondary)
+      );
+  }
+
+
+  .volunteering-footer-icon {
+    display: flex;
+
+    width: 2.7rem;
+    height: 2.7rem;
+
+    flex-shrink: 0;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.85rem;
+
+    background:
+      color-mix(
+        in srgb,
+        rgb(244, 63, 94) 11%,
+        transparent
+      );
+
+    color: rgb(244, 63, 94);
+  }
+
+
+  .volunteering-footer-icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+
+  .volunteering-footer strong {
+    display: block;
+
+    color: var(--text-primary);
+
+    font-size: 0.82rem;
+  }
+
+
+  .volunteering-footer p {
+    margin: 0.2rem 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 0.7rem;
+    line-height: 1.05rem;
+  }
+
+
+  @media (max-width: 900px) {
+    .volunteering-header {
+      flex-direction: column;
+
+      align-items: flex-start;
+
+      gap: 0.75rem;
+    }
+
+    .volunteering-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  @media (max-width: 640px) {
+    .volunteering-section {
+      padding: 1.25rem;
+
+      border-radius: 1.5rem;
+    }
+
+    .volunteer-card {
+      padding: 1.15rem;
+    }
+
+    .volunteer-impact ul {
+      grid-template-columns: 1fr;
+    }
+
+    .volunteering-footer {
+      align-items: flex-start;
+    }
+  }
+</style>

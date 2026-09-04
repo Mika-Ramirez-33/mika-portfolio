@@ -1,0 +1,93 @@
+<button
+  id="theme-toggle"
+  class="theme-selector"
+  type="button"
+  aria-label="Cambiar tema"
+  title="Cambiar tema"
+>
+  <span id="theme-icon-light" aria-hidden="true">☀</span>
+  <span id="theme-icon-dark" aria-hidden="true" hidden>☾</span>
+</button>
+
+<script>
+  const STORAGE_KEY = 'mika-portfolio-theme';
+
+  const root = document.documentElement;
+
+  const themeButton =
+    document.querySelector<HTMLButtonElement>('#theme-toggle');
+
+  const lightIcon =
+    document.querySelector<HTMLElement>('#theme-icon-light');
+
+  const darkIcon =
+    document.querySelector<HTMLElement>('#theme-icon-dark');
+
+  const applyTheme = (theme: 'light' | 'dark') => {
+    root.dataset.theme = theme;
+
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    if (lightIcon) {
+      lightIcon.hidden = theme === 'dark';
+    }
+
+    if (darkIcon) {
+      darkIcon.hidden = theme === 'light';
+    }
+  };
+
+  const savedTheme = localStorage.getItem(STORAGE_KEY);
+
+  const preferredTheme =
+    savedTheme === 'light' || savedTheme === 'dark'
+      ? savedTheme
+      : window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+
+  applyTheme(preferredTheme);
+
+  themeButton?.addEventListener('click', () => {
+    const currentTheme =
+      root.dataset.theme === 'dark'
+        ? 'dark'
+        : 'light';
+
+    applyTheme(
+      currentTheme === 'dark'
+        ? 'light'
+        : 'dark'
+    );
+  });
+</script>
+
+<style>
+  .theme-selector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.25rem;
+    height: 2.25rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+
+    background: var(--background-secondary);
+    color: var(--text-primary);
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .theme-selector:hover {
+    transform: translateY(-1px);
+  }
+</style>

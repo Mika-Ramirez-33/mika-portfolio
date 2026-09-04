@@ -1,0 +1,57 @@
+---
+const locale = Astro.currentLocale ?? 'es';
+const isEnglish = locale === 'en';
+
+const pathname = Astro.url.pathname;
+
+const targetPath = isEnglish
+  ? pathname.replace(/^\/en/, '') || '/'
+  : `/en${pathname === '/' ? '/' : pathname}`;
+
+const label = isEnglish ? 'ES' : 'EN';
+
+const ariaLabel = isEnglish
+  ? 'Cambiar a español'
+  : 'Switch to English';
+---
+
+<a
+  href={targetPath}
+  class="language-selector"
+  aria-label={ariaLabel}
+  title={ariaLabel}
+>
+  {label}
+</a>
+
+<style>
+  .language-selector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 2.5rem;
+    height: 2.25rem;
+    padding: 0 0.75rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+
+    background: var(--background-secondary);
+    color: var(--text-primary);
+
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .language-selector:hover {
+    transform: translateY(-1px);
+  }
+</style>

@@ -1,0 +1,260 @@
+---
+import LanguageSelector from './LanguageSelector.astro';
+import ThemeSelector from './ThemeSelector.astro';
+
+interface NavItem {
+  href: string;
+  es: string;
+  en: string;
+}
+
+const navItems: NavItem[] = [
+  {
+    href: '#home',
+    es: 'Inicio',
+    en: 'Home',
+  },
+  {
+    href: '#about',
+    es: 'Sobre mí',
+    en: 'About',
+  },
+  {
+    href: '#experience',
+    es: 'Experiencia',
+    en: 'Experience',
+  },
+  {
+    href: '#projects',
+    es: 'Proyectos',
+    en: 'Projects',
+  },
+  {
+    href: '#skills',
+    es: 'Habilidades',
+    en: 'Skills',
+  },
+  {
+    href: '#contact',
+    es: 'Contacto',
+    en: 'Contact',
+  },
+];
+
+const locale = Astro.currentLocale ?? 'es';
+const isEnglish = locale === 'en';
+---
+
+<header class="navbar">
+  <nav class="navbar-container" aria-label="Navegación principal">
+
+    <a href="#home" class="navbar-brand">
+      Mika Ramirez
+    </a>
+
+    <div class="navbar-links">
+      {
+        navItems.map((item) => (
+          <a href={item.href} class="navbar-link">
+            {isEnglish ? item.en : item.es}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="navbar-actions">
+      <LanguageSelector />
+
+      <ThemeSelector />
+
+      <button
+        id="mobile-menu-button"
+        class="mobile-menu-button"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    {
+      navItems.map((item) => (
+        <a href={item.href} class="mobile-menu-link">
+          {isEnglish ? item.en : item.es}
+        </a>
+      ))
+    }
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>(
+    '#mobile-menu-button'
+  );
+
+  const mobileMenu = document.querySelector<HTMLElement>(
+    '#mobile-menu'
+  );
+
+  menuButton?.addEventListener('click', () => {
+    if (!mobileMenu) return;
+
+    const isOpen = !mobileMenu.hidden;
+
+    mobileMenu.hidden = isOpen;
+
+    menuButton.setAttribute(
+      'aria-expanded',
+      String(!isOpen)
+    );
+  });
+
+  mobileMenu
+    ?.querySelectorAll('a')
+    .forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.hidden = true;
+
+        menuButton?.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+      });
+    });
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 50;
+
+    border-bottom: 1px solid var(--border-color);
+
+    background: var(--background-elevated);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 4rem;
+
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 2rem;
+  }
+
+  .navbar-brand {
+    color: var(--text-primary);
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+  }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+
+    gap: 1.5rem;
+  }
+
+  .navbar-link {
+    color: var(--text-secondary);
+
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition: color 150ms ease;
+  }
+
+  .navbar-link:hover {
+    color: var(--text-primary);
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+  }
+
+  .mobile-menu-button {
+    display: none;
+
+    width: 2.25rem;
+    height: 2.25rem;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+
+    background: var(--background-secondary);
+    color: var(--text-primary);
+
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    padding: 0.75rem 1.5rem 1.25rem;
+
+    border-top: 1px solid var(--border-color);
+
+    background: var(--background-secondary);
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu-link {
+    display: block;
+
+    padding: 0.75rem;
+
+    border-radius: 0.75rem;
+
+    color: var(--text-secondary);
+
+    font-size: 0.875rem;
+
+    text-decoration: none;
+  }
+
+  .mobile-menu-link:hover {
+    background: var(--background-primary);
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 850px) {
+    .navbar-links {
+      display: none;
+    }
+
+    .mobile-menu-button {
+      display: inline-flex;
+    }
+  }
+</style>

@@ -1,39 +1,980 @@
 ---
-import Scene3D from './Scene3D';
+import Scene3D from './Scene3D.tsx';
+
+import {
+  useTranslations,
+} from '../i18n/utils';
+
+const t = useTranslations(
+  Astro.currentLocale
+);
+
+const softSkills = [
+  {
+    icon: 'problem',
+    titleKey: 'hero.skill.problem.title',
+    descriptionKey: 'hero.skill.problem.description',
+  },
+  {
+    icon: 'strategy',
+    titleKey: 'hero.skill.strategy.title',
+    descriptionKey: 'hero.skill.strategy.description',
+  },
+  {
+    icon: 'change',
+    titleKey: 'hero.skill.change.title',
+    descriptionKey: 'hero.skill.change.description',
+  },
+  {
+    icon: 'leadership',
+    titleKey: 'hero.skill.leadership.title',
+    descriptionKey: 'hero.skill.leadership.description',
+  },
+  {
+    icon: 'results',
+    titleKey: 'hero.skill.results.title',
+    descriptionKey: 'hero.skill.results.description',
+  },
+  {
+    icon: 'creative',
+    titleKey: 'hero.skill.creative.title',
+    descriptionKey: 'hero.skill.creative.description',
+  },
+] as const;
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <div class="absolute inset-0 z-0">
+<section
+  id="home"
+  class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
+>
+  <!-- Background 3D -->
+  <div class="absolute inset-0 z-0 opacity-55">
     <Scene3D client:load />
   </div>
-  
-  <div class="container mx-auto px-4 z-10">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="flex flex-col items-center mb-8 animate-fade-in">
-        <div class="w-32 h-32 rounded-full border-4 border-white/50 shadow-xl mb-6 overflow-hidden bg-gradient-to-br from-blue-100 to-blue-50">
-          <img
-            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&h=400&auto=format&fit=crop&q=80"
-            alt="Profile"
-            class="w-full h-full object-cover"
+
+  <!-- Overlay -->
+  <div class="hero-overlay absolute inset-0 z-[1]"></div>
+
+  <!-- Main content -->
+  <div class="hero-container">
+
+    <p class="hero-eyebrow">
+      {t('hero.eyebrow')}
+    </p>
+
+    <h1 class="hero-name">
+      Mika Ramirez
+    </h1>
+
+    <h2 class="hero-role">
+      {t('hero.role')}
+    </h2>
+
+    <p class="hero-description">
+      {t('hero.description')}
+    </p>
+
+    <!-- Actions -->
+    <div class="hero-actions">
+
+      <a
+        href="https://github.com/Mika-Ramirez-33"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="primary-button"
+      >
+        {t('hero.projects')}
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14 5h5v5M10 14L19 5M19 13v6H5V5h6"
           />
+        </svg>
+      </a>
+
+      <a
+        href="#experience"
+        class="secondary-button"
+      >
+        {t('hero.experience')}
+      </a>
+
+      <a
+        href="#contact"
+        class="contact-button"
+      >
+        {t('hero.contact')}
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 12h14M13 6l6 6-6 6"
+          />
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- Soft Skills Carousel -->
+    <div class="work-panel">
+
+      <div class="work-header">
+
+        <div>
+          <p class="work-eyebrow">
+            {t('hero.workEyebrow')}
+          </p>
+
+          <h3>
+            {t('hero.workTitle')}
+          </h3>
         </div>
-        <h1 class="text-6xl font-bold mb-2">John Doe</h1>
-        <h2 class="text-3xl text-apple-gray-400 mb-6">Software Developer</h2>
+
+        <div class="work-controls">
+
+          <span class="work-subtitle">
+            {t('hero.workSubtitle')}
+          </span>
+
+          <div class="carousel-buttons">
+
+            <button
+              type="button"
+              class="carousel-button"
+              id="soft-skills-prev"
+              aria-label={t('hero.previous')}
+              title={t('hero.previous')}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 18l-6-6 6-6"
+                />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="carousel-button"
+              id="soft-skills-next"
+              aria-label={t('hero.next')}
+              title={t('hero.next')}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 18l6-6-6-6"
+                />
+              </svg>
+            </button>
+
+          </div>
+        </div>
+
       </div>
-      <p class="text-xl text-apple-gray-500 mb-8 animate-slide-up">
-        Building elegant solutions for complex problems
-      </p>
-      <div class="flex gap-4 justify-center animate-slide-up" style="animation-delay: 200ms;">
-        <a href="/projects" class="bg-apple-gray-500 text-white px-6 py-3 rounded-full hover:bg-apple-gray-400 transition-colors">
-          View My Work
-        </a>
-        <a href="#contact" class="border border-apple-gray-500 px-6 py-3 rounded-full hover:bg-apple-gray-100 transition-colors">
-          Get in Touch
-        </a>
-        <a href="https://github.com/larry-xue/apple-style-portfolio" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors">
-          Give me a star on GitHub
-        </a>
+
+      <div
+        class="soft-skills-carousel"
+        id="soft-skills-carousel"
+      >
+        {
+          softSkills.map((skill, index) => (
+
+            <article class="work-card">
+
+              <div class="work-card-top">
+
+                <span class="work-number">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <div class={`work-icon icon-${skill.icon}`}>
+
+                  {skill.icon === 'problem' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="6" />
+                      <path
+                        stroke-linecap="round"
+                        d="M15.5 15.5L21 21M8.5 11h5M11 8.5v5"
+                      />
+                    </svg>
+                  )}
+
+                  {skill.icon === 'strategy' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 19V9M10 19V5M16 19v-7M22 19H2"
+                      />
+                    </svg>
+                  )}
+
+                  {skill.icon === 'change' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 7h11l-3-3M20 17H9l3 3"
+                      />
+                    </svg>
+                  )}
+
+                  {skill.icon === 'leadership' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <circle cx="9" cy="8" r="3" />
+                      <circle cx="17" cy="9" r="2" />
+                      <path
+                        stroke-linecap="round"
+                        d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14c3 0 5 2 5 5"
+                      />
+                    </svg>
+                  )}
+
+                  {skill.icon === 'results' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="8" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="12" cy="12" r="1" />
+                    </svg>
+                  )}
+
+                  {skill.icon === 'creative' && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 18h6M10 22h4M8.5 14.5A7 7 0 1115.5 14.5C14.4 15.3 14 16 14 17h-4c0-1-.4-1.7-1.5-2.5z"
+                      />
+                    </svg>
+                  )}
+
+                </div>
+              </div>
+
+              <h4>
+                {t(skill.titleKey)}
+              </h4>
+
+              <p>
+                {t(skill.descriptionKey)}
+              </p>
+
+            </article>
+
+          ))
+        }
       </div>
+
+      <div class="carousel-footer">
+
+        <div class="carousel-progress-track">
+          <div
+            class="carousel-progress-bar"
+            id="carousel-progress-bar"
+          ></div>
+        </div>
+
+        <span class="carousel-hint">
+          {t('hero.swipe')}
+        </span>
+
+      </div>
+
     </div>
   </div>
 </section>
+
+<script>
+  const carousel =
+    document.querySelector<HTMLElement>(
+      '#soft-skills-carousel'
+    );
+
+  const previousButton =
+    document.querySelector<HTMLButtonElement>(
+      '#soft-skills-prev'
+    );
+
+  const nextButton =
+    document.querySelector<HTMLButtonElement>(
+      '#soft-skills-next'
+    );
+
+  const progressBar =
+    document.querySelector<HTMLElement>(
+      '#carousel-progress-bar'
+    );
+
+  const getScrollAmount = () => {
+    if (!carousel) return 320;
+
+    const firstCard =
+      carousel.querySelector<HTMLElement>(
+        '.work-card'
+      );
+
+    if (!firstCard) return 320;
+
+    const computedStyle =
+      window.getComputedStyle(carousel);
+
+    const gap =
+      Number.parseFloat(
+        computedStyle.columnGap
+      ) || 13;
+
+    return firstCard.offsetWidth + gap;
+  };
+
+  const updateCarousel = () => {
+    if (!carousel) return;
+
+    const maxScroll =
+      carousel.scrollWidth -
+      carousel.clientWidth;
+
+    const progress =
+      maxScroll > 0
+        ? carousel.scrollLeft / maxScroll
+        : 0;
+
+    if (progressBar) {
+      progressBar.style.transform =
+        `scaleX(${Math.max(0.12, progress)})`;
+    }
+
+    if (previousButton) {
+      previousButton.disabled =
+        carousel.scrollLeft <= 3;
+    }
+
+    if (nextButton) {
+      nextButton.disabled =
+        carousel.scrollLeft >=
+        maxScroll - 3;
+    }
+  };
+
+  previousButton?.addEventListener(
+    'click',
+    () => {
+      carousel?.scrollBy({
+        left: -getScrollAmount(),
+        behavior: 'smooth',
+      });
+    }
+  );
+
+  nextButton?.addEventListener(
+    'click',
+    () => {
+      carousel?.scrollBy({
+        left: getScrollAmount(),
+        behavior: 'smooth',
+      });
+    }
+  );
+
+  carousel?.addEventListener(
+    'scroll',
+    updateCarousel,
+    {
+      passive: true,
+    }
+  );
+
+  window.addEventListener(
+    'resize',
+    updateCarousel
+  );
+
+  updateCarousel();
+</script>
+
+<style>
+  .hero-section {
+    background: var(--background-primary);
+    color: var(--text-primary);
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(
+          in srgb,
+          var(--background-primary) 25%,
+          transparent
+        ),
+        color-mix(
+          in srgb,
+          var(--background-primary) 82%,
+          transparent
+        ) 58%,
+        var(--background-primary)
+      );
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding:
+      8rem
+      1.5rem
+      3rem;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    margin: 0 0 1.2rem;
+    color: var(--accent);
+    font-size:
+      clamp(0.68rem, 1.2vw, 0.9rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    margin: 0;
+    color: var(--text-primary);
+    font-size:
+      clamp(4rem, 9vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+  }
+
+  .hero-role {
+    margin: 1.5rem 0 0;
+    color: var(--text-secondary);
+    font-size:
+      clamp(1.7rem, 3.5vw, 2.5rem);
+    font-weight: 560;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-description {
+    max-width: 55rem;
+    margin: 1.7rem auto 0;
+    color: var(--text-secondary);
+    font-size:
+      clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .contact-button {
+    display: inline-flex;
+    min-height: 3.2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding:
+      0.75rem
+      1.65rem;
+    border-radius: 9999px;
+    font-size: 0.87rem;
+    font-weight: 650;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .primary-button {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: white;
+    box-shadow:
+      0 10px 28px
+      color-mix(
+        in srgb,
+        var(--accent) 22%,
+        transparent
+      );
+  }
+
+  .primary-button svg,
+  .contact-button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .primary-button:hover {
+    transform: translateY(-2px);
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+  }
+
+  .secondary-button {
+    border: 1px solid var(--border-color);
+    background: var(--background-elevated);
+    color: var(--text-primary);
+  }
+
+  .secondary-button:hover {
+    transform: translateY(-2px);
+    border-color:
+      color-mix(
+        in srgb,
+        var(--accent) 25%,
+        var(--border-color)
+      );
+    background: var(--background-secondary);
+  }
+
+  .contact-button {
+    color: var(--accent);
+  }
+
+  .contact-button:hover {
+    transform: translateX(3px);
+  }
+
+  .work-panel {
+    max-width: 72rem;
+    margin:
+      3rem
+      auto
+      0;
+    padding: 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1.5rem;
+    background:
+      color-mix(
+        in srgb,
+        var(--background-elevated) 96%,
+        var(--accent) 4%
+      );
+    box-shadow:
+      0 18px 45px
+      var(--shadow-color);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden;
+  }
+
+  .work-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding:
+      0.15rem
+      0.2rem
+      1rem;
+    border-bottom:
+      1px solid
+      var(--border-color);
+    text-align: left;
+  }
+
+  .work-eyebrow {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 750;
+    letter-spacing: 0.15em;
+  }
+
+  .work-header h3 {
+    margin: 0.3rem 0 0;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .work-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .work-subtitle {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .carousel-buttons {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .carousel-button {
+    display: flex;
+    width: 2.35rem;
+    height: 2.35rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    background: var(--background-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition:
+      transform 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease,
+      background-color 150ms ease,
+      opacity 150ms ease;
+  }
+
+  .carousel-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color:
+      color-mix(
+        in srgb,
+        var(--accent) 30%,
+        var(--border-color)
+      );
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 7%,
+        var(--background-secondary)
+      );
+    color: var(--accent);
+  }
+
+  .carousel-button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .carousel-button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .soft-skills-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns:
+      minmax(18rem, 32%);
+    gap: 0.8rem;
+    margin-top: 1rem;
+    padding:
+      0.1rem
+      0.1rem
+      0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  .soft-skills-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .work-card {
+    min-width: 0;
+    min-height: 11rem;
+    padding: 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(
+          in srgb,
+          var(--accent) 3%,
+          var(--background-secondary)
+        ),
+        var(--background-secondary)
+      );
+    text-align: left;
+    scroll-snap-align: start;
+    transition:
+      transform 170ms ease,
+      border-color 170ms ease,
+      box-shadow 170ms ease;
+  }
+
+  .work-card:hover {
+    transform: translateY(-3px);
+    border-color:
+      color-mix(
+        in srgb,
+        var(--accent) 25%,
+        var(--border-color)
+      );
+    box-shadow:
+      0 12px 28px
+      var(--shadow-color);
+  }
+
+  .work-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .work-number {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+  }
+
+  .work-icon {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.8rem;
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 9%,
+        transparent
+      );
+    color: var(--accent);
+  }
+
+  .work-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .icon-strategy,
+  .icon-results {
+    color: rgb(168, 85, 247);
+    background:
+      color-mix(
+        in srgb,
+        rgb(168, 85, 247) 9%,
+        transparent
+      );
+  }
+
+  .icon-change,
+  .icon-creative {
+    color: rgb(6, 182, 212);
+    background:
+      color-mix(
+        in srgb,
+        rgb(6, 182, 212) 9%,
+        transparent
+      );
+  }
+
+  .work-card h4 {
+    margin: 1rem 0 0;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 690;
+    line-height: 1.25rem;
+  }
+
+  .work-card p {
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.15rem;
+  }
+
+  .carousel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.2rem;
+  }
+
+  .carousel-progress-track {
+    position: relative;
+    width: 5rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--border-color);
+    overflow: hidden;
+  }
+
+  .carousel-progress-bar {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent);
+    transform: scaleX(0.12);
+    transform-origin: left center;
+    transition:
+      transform 120ms ease;
+  }
+
+  .carousel-hint {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+  }
+
+  @media (max-width: 900px) {
+    .soft-skills-carousel {
+      grid-auto-columns:
+        minmax(17rem, 48%);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-container {
+      padding:
+        7rem
+        1rem
+        2rem;
+    }
+
+    .hero-name {
+      font-size:
+        clamp(3.4rem, 16vw, 4.6rem);
+    }
+
+    .hero-role {
+      font-size: 1.55rem;
+    }
+
+    .hero-description {
+      font-size: 0.95rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .contact-button {
+      width: 100%;
+    }
+
+    .work-panel {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 1.2rem;
+    }
+
+    .work-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .work-controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .work-subtitle {
+      font-size: 0.66rem;
+    }
+
+    .soft-skills-carousel {
+      grid-auto-columns:
+        minmax(16rem, 88%);
+    }
+
+    .work-card {
+      min-height: 10.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .soft-skills-carousel {
+      scroll-behavior: auto;
+    }
+
+    .work-card,
+    .carousel-button,
+    .primary-button,
+    .secondary-button,
+    .contact-button {
+      transition: none;
+    }
+  }
+</style>

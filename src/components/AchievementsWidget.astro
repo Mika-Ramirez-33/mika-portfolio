@@ -1,42 +1,444 @@
 ---
-interface Achievement {
-  icon: string;
-  number: string;
-  label: string;
-}
+import {
+  useTranslations,
+} from '../i18n/utils';
 
-const achievements: Achievement[] = [
+const t = useTranslations(
+  Astro.currentLocale
+);
+
+const achievements = [
   {
-    icon: "🚀",
-    number: "50+",
-    label: "Projects Completed"
+    value: '27+',
+    labelKey: 'achievements.projects.label',
+    descriptionKey: 'achievements.projects.description',
+    icon: 'projects',
   },
   {
-    icon: "👥",
-    number: "30+",
-    label: "Happy Clients"
+    value: '17+',
+    labelKey: 'achievements.teams.label',
+    descriptionKey: 'achievements.teams.description',
+    icon: 'teams',
   },
   {
-    icon: "⭐",
-    number: "100+",
-    label: "GitHub Stars"
+    value: '15+',
+    labelKey: 'achievements.audits.label',
+    descriptionKey: 'achievements.audits.description',
+    icon: 'audits',
   },
   {
-    icon: "📚",
-    number: "15+",
-    label: "Tech Articles"
-  }
-];
+    value: '98%',
+    labelKey: 'achievements.performance.label',
+    descriptionKey: 'achievements.performance.description',
+    icon: 'performance',
+  },
+] as const;
+
+const secondaryMetrics = [
+  {
+    value: '25',
+    labelKey: 'achievements.metric.kpis',
+  },
+  {
+    value: '100%',
+    labelKey: 'achievements.metric.sla',
+  },
+  {
+    value: '11',
+    labelKey: 'achievements.metric.specialists',
+  },
+  {
+    value: '4',
+    labelKey: 'achievements.metric.tools',
+  },
+] as const;
 ---
 
-<div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-8 shadow-xl text-white">
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-    {achievements.map((achievement) => (
-      <div class="text-center">
-        <span class="text-3xl mb-2 block">{achievement.icon}</span>
-        <p class="text-4xl font-bold mb-1">{achievement.number}</p>
-        <p class="text-blue-100 text-sm">{achievement.label}</p>
-      </div>
-    ))}
+<section
+  id="career-highlights"
+  class="career-highlights"
+>
+  <div class="section-heading">
+
+    <p class="section-eyebrow">
+      {t('achievements.eyebrow')}
+    </p>
+
   </div>
-</div>
+
+  <div class="highlights-grid">
+    {
+      achievements.map((achievement) => (
+
+        <article class="highlight-card">
+
+          <div
+            class={`highlight-icon icon-${achievement.icon}`}
+          >
+
+            {achievement.icon === 'projects' && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 6.75V5.25A2.25 2.25 0 0111.25 3h1.5A2.25 2.25 0 0115 5.25v1.5m4.5 3.75v7.25A2.25 2.25 0 0117.25 20H6.75A2.25 2.25 0 014.5 17.75V10.5m15 0A2.25 2.25 0 0017.25 8.25H6.75A2.25 2.25 0 004.5 10.5m15 0v1.125a2.25 2.25 0 01-1.69 2.179A22.5 22.5 0 0112 14.5a22.5 22.5 0 01-5.81-.696A2.25 2.25 0 014.5 11.625V10.5"
+                />
+              </svg>
+            )}
+
+            {achievement.icon === 'teams' && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M18 18.72a8.96 8.96 0 003.741-.479 3 3 0 00-4.682-2.72M18 18.72v-.75c0-.946-.183-1.85-.516-2.677M18 18.72a8.96 8.96 0 01-6 2.28 8.96 8.96 0 01-6-2.28m12 0a5.97 5.97 0 00-.516-2.677m0 0a5.97 5.97 0 00-10.968 0m10.968 0a3 3 0 00-4.682-2.72m-6.286 2.72a3 3 0 014.682-2.72M12 12.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"
+                />
+              </svg>
+            )}
+
+            {achievement.icon === 'audits' && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75l2.25 2.25L15 9.75M6.75 3.75h10.5A2.25 2.25 0 0119.5 6v12A2.25 2.25 0 0117.25 20.25H6.75A2.25 2.25 0 014.5 18V6a2.25 2.25 0 012.25-2.25z"
+                />
+              </svg>
+            )}
+
+            {achievement.icon === 'performance' && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 13.5l4.5-4.5 3 3L16.5 6l4.5 4.5M18 6h-1.5M18 6v1.5"
+                />
+              </svg>
+            )}
+
+          </div>
+
+          <div class="highlight-content">
+
+            <p class="highlight-value">
+              {achievement.value}
+            </p>
+
+            <h3 class="highlight-label">
+              {t(achievement.labelKey)}
+            </h3>
+
+            <p class="highlight-description">
+              {t(achievement.descriptionKey)}
+            </p>
+
+          </div>
+
+        </article>
+
+      ))
+    }
+  </div>
+
+  <div class="secondary-metrics">
+    {
+      secondaryMetrics.map((metric, index) => (
+        <>
+          <div>
+            <strong>
+              {metric.value}
+            </strong>
+
+            <span>
+              {t(metric.labelKey)}
+            </span>
+          </div>
+
+          {index < secondaryMetrics.length - 1 && (
+            <span
+              class="metric-separator"
+              aria-hidden="true"
+            ></span>
+          )}
+        </>
+      ))
+    }
+  </div>
+
+</section>
+
+<style>
+  .career-highlights {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--accent) 92%, #ffffff),
+        color-mix(in srgb, var(--accent-dark) 88%, #111827)
+      );
+    box-shadow: 0 20px 50px var(--shadow-color);
+    overflow: hidden;
+  }
+
+  .section-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-eyebrow {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 0.35rem 0 0;
+    color: white;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .highlight-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.4rem 1rem;
+    border:
+      1px solid
+      rgba(255, 255, 255, 0.13);
+    border-radius: 1.4rem;
+    background:
+      rgba(255, 255, 255, 0.075);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .highlight-card:hover {
+    transform: translateY(-4px);
+    background:
+      rgba(255, 255, 255, 0.12);
+  }
+
+  .highlight-icon {
+    display: flex;
+    width: 3.4rem;
+    height: 3.4rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+    border:
+      1px solid
+      rgba(255, 255, 255, 0.14);
+    border-radius: 1rem;
+  }
+
+  .highlight-icon svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .icon-projects {
+    background:
+      rgba(59, 130, 246, 0.18);
+    color: rgb(191, 219, 254);
+  }
+
+  .icon-teams {
+    background:
+      rgba(168, 85, 247, 0.18);
+    color: rgb(216, 180, 254);
+  }
+
+  .icon-audits {
+    background:
+      rgba(34, 197, 94, 0.18);
+    color: rgb(134, 239, 172);
+  }
+
+  .icon-performance {
+    background:
+      rgba(250, 204, 21, 0.18);
+    color: rgb(254, 240, 138);
+  }
+
+  .highlight-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .highlight-value {
+    margin: 0;
+    color: white;
+    font-size:
+      clamp(2.2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.055em;
+  }
+
+  .highlight-label {
+    margin: 0.7rem 0 0;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.25rem;
+  }
+
+  .highlight-description {
+    max-width: 13rem;
+    margin: 0.35rem 0 0;
+    color:
+      rgba(255, 255, 255, 0.68);
+    font-size: 0.76rem;
+    line-height: 1.1rem;
+  }
+
+  .secondary-metrics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1.35rem;
+    border-top:
+      1px solid
+      rgba(255, 255, 255, 0.13);
+  }
+
+  .secondary-metrics > div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .secondary-metrics strong {
+    color: white;
+    font-size: 1rem;
+    font-weight: 750;
+  }
+
+  .secondary-metrics span {
+    color:
+      rgba(255, 255, 255, 0.65);
+    font-size: 0.72rem;
+  }
+
+  .metric-separator {
+    width: 1px;
+    height: 1.3rem;
+    background:
+      rgba(255, 255, 255, 0.18);
+  }
+
+  @media (max-width: 1024px) {
+
+    .highlights-grid {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    .secondary-metrics {
+      flex-wrap: wrap;
+    }
+
+    .metric-separator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+
+    .career-highlights {
+      padding: 1.25rem;
+      border-radius: 1.5rem;
+    }
+
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .highlight-card {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .highlight-icon {
+      width: 3.1rem;
+      height: 3.1rem;
+      flex-shrink: 0;
+      margin: 0;
+    }
+
+    .highlight-content {
+      align-items: flex-start;
+    }
+
+    .highlight-value {
+      font-size: 2rem;
+    }
+
+    .highlight-label {
+      margin-top: 0.25rem;
+    }
+
+    .highlight-description {
+      max-width: none;
+    }
+
+    .secondary-metrics {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      justify-items: start;
+    }
+
+    .secondary-metrics > div {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+  }
+</style>
