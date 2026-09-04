@@ -14,37 +14,42 @@ import VolunteeringWidget from '../components/VolunteeringWidget.astro'
 <Layout title="Modern Developer Portfolio">
   <main>
     <Navbar />
-    <Hero />
+
+    <div id="home">
+      <Hero />
+    </div>
 
     <section class="py-20 px-4">
       <div class="container mx-auto max-w-6xl">
-        <div class="mb-8">
+
+        <div id="about" class="mb-8">
           <InfoWidgets />
         </div>
+
         <div class="space-y-8 mb-8">
           <AchievementsWidget />
         </div>
 
-         <div class="space-y-8 mb-8">
+        <div id="experience" class="space-y-8 mb-8">
           <ExperienceWidget />
         </div>
 
-         <div class="space-y-8 mb-8">
-          <SkillsWidget/>
+        <div id="skills" class="space-y-8 mb-8">
+          <SkillsWidget />
         </div>
 
-         <div class="space-y-8 mb-8">
+        <div id="projects" class="space-y-8 mb-8">
           <ProjectsWidget />
         </div>
-       
-       
+
         <div class="space-y-8 mb-8">
           <VolunteeringWidget />
         </div>
-      
-        <div class="space-y-8 mb-8">
+
+        <div id="contact" class="space-y-8 mb-8">
           <ContactSection />
         </div>
+
       </div>
     </section>
   </main>
